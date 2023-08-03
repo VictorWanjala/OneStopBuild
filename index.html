@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <title>OneStopBuild - Online Hardware Store</title>
+
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <nav class="top-navbar">
+  
+    <ul class="top-nav-links">
+      <li><a href="#Home">Home</a></li>
+      <li><a href="#About">About</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Products</a></li>
+      <button class="cart-icon" id="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+      </button>
+      
+        
+    </button>
+
+    </ul>
+  </nav>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-navbar">
+    <ul class="bottom-nav-links">
+      <li id="hand-tools"><a href="#">Hand Tools</a>
+    <ul id="hand-tools" class="hidden"></ul>
+    </li>
+      <li><a href="#">Abrasive</a></li>
+      <li><a href="#">Concrete</a></li>
+      <li><a href="#">Power Bills</a></li>
+      <li><a href="#">Power Tools</a></li>
+      <li><a href="#">Accessories</a></li>
+      <li>
+        <form class="search-form">
+          <input type="text" placeholder="Search Products">
+          <button type="submit">Search</button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+
+        <div class="cart-modal" id="cart-modal">
+            <div class="cart-content">
+            <h3>Your Cart</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+            </div>
+            <div class="cart-items" id="cart-container">
+            </div>
+            <div class="cart-footer">
+            <h4>Total: <span id="cart-total">$0.00</span></h4>
+            <button class="checkout-button">Checkout</button>
+            </div>
+
+               
+        </div>
+     
+          
+  
+
+
+  <section class="intro">
+    <div class="intro-left">
+        <h2>Buy Top Quality Construction Tools</h2>
+        <h3>At Affordable Prices!</h3>
+        <button class="button">Shop Now</button>
+    </div>
+    <div class="intro-right" id="aboutid"></div>
+</section>
+
+
+
+<section>
+    <div class="content"></div>
+    <div class="maincontainer">
+      <div class="cards"></div>
+    </div>
+</section>
+  
+
+  <script src="./script.js"></script>
+</body>
+</html>
