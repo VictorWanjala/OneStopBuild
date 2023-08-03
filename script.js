@@ -91,12 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     alert('No products added to the cart.');
                 }
-            
+            console.log(toggleCartModal)
             };
             
             // Attach click event to the cart icon to toggle the cart modal
             const cartIcon = document.getElementById('cart-icon');
             cartIcon.addEventListener('click', toggleCartModal);
+            
             
             // Function to close the cart modal
             const closeCartModal = () => {
