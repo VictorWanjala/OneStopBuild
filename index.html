@@ -16,8 +16,9 @@
     <ul class="top-nav-links">
       <li><a href="#Home">Home</a></li>
       <li><a href="#About">About</a></li>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">Products</a></li>
+      <li><a href="#Contact">Contact</a></li>
+      <li><a href="#Products">Products</a></li>
+
       <button class="cart-icon" id="cart-icon">
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-count">0</span>
@@ -33,23 +34,58 @@
   <nav class="bottom-navbar">
     <ul class="bottom-nav-links">
       <li id="hand-tools"><a href="#">Hand Tools</a>
-    <ul id="hand-tools" class="hidden"></ul>
+    <ul id="hand-tools-list" class="hidden">
+        <li>Screwdriver</li>
+        <li>Pliers</li>
+        <li>Hammer</li>
+        
+    </ul>
     </li>
-      <li><a href="#">Abrasive</a></li>
-      <li><a href="#">Concrete</a></li>
-      <li><a href="#">Power Bills</a></li>
-      <li><a href="#">Power Tools</a></li>
-      <li><a href="#">Accessories</a></li>
-      <li>
-        <form class="search-form">
-          <input type="text" placeholder="Search Products">
-          <button type="submit">Search</button>
-        </form>
-      </li>
+    <li id="flooring"><a href="#">Flooring</a>
+        <ul id="flooringlist" class="hidden">
+            <li>Tiles accessories</li>
+            <li>Wooden flooring</li>
+            <li>Tile adhesive</li>
+        </ul>
+        </li>
+        <li id="doors"><a href="#">Doors</a>
+            <ul id="door-list" class="hidden">
+                <li>Flush doors</li>
+                <li>Hardwood doors</li>
+                <li>Laminated doors</li>
+            </ul>
+            </li>
+            <li id="plumbing"><a href="#">Plumbing</a>
+                <ul id="plumbing-list" class="hidden">
+                    <li>PVC Pipes</li>
+                    <li>PPR Pipes</li>
+                    <li>Gutters</li>
+                </ul>
+                </li>
+                <li id="roofing"><a href="#">Roofing</a>
+                    <ul id="roofing-list" class="hidden">
+                        <li>Coated steel roofing tiles</li>
+                        <li>Corrugated iron sheets</li>
+                        <li>Toproof profile iron sheet</li>
+                    </ul>
+                    </li>
+                    <li id="fencing"><a href="#">Fencing</a>
+                        <ul id="fencing-list" class="hidden">
+                            <li>Steel</li>
+                            <li>Barbed Wire</li>
+                            <li>Chainlink</li>
+                        </ul>
+                        </li>
+            <li>
+                <form class="search-form">
+                <input type="text" placeholder="Search Products">
+                <button type="submit">Search</button>
+                </form>
+            </li>
     </ul>
   </nav>
 
-        <div class="cart-modal" id="cart-modal">
+        <div class="cart-modal">
             <div class="cart-content">
             <h3>Your Cart</h3>
             <button class="close-cart" id="close-cart">&times;</button>

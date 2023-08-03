@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         
-            // Update the cart total display
+            // cart total display
             const cartTotal = document.getElementById('cart-total');
             const totalAmount = cart.products.reduce((total, product)=>{
             if(product && product.price){
@@ -44,13 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
             },0)
             cartTotal.textContent = `$${totalAmount.toFixed(2)}`;
 
-            // Attach click event to the cart icon to toggle the cart modal
+            // Cart Click event
             const cartIcon = document.getElementById('cart-icon');
             cartIcon.addEventListener('click', toggleCartModal);
          };
         
         // Function to fetch and display cart data
-        const fetchCartData = () => {
+        const fetchCartData = (event) => {
+            event.preventDefault();
         fetch(cartUrl)
             .then(response => response.json())
             .then(cartData => {
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (Array.isArray(cartData.products)) {
                     cart.products = cartData.products;
                 } else {
-                    cart.products = []; // Initialize an empty array if the cart data is not in the expected format
+                    cart.products = [];
                 }
                 updateCartDisplay();
             })
@@ -158,9 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
             },
          
         ];
+        
 
 
     fetch(apiUrl)
+    
       .then(response => response.json())
       .then(data => {
         // Process the fetched data
