@@ -93,6 +93,8 @@
                             cartTotal.textContent = `$${cart.products.reduce((total, product) => total + product.price, 0).toFixed(2)}`;
                 
                             cartModal.classList.toggle('show');
+                            // Show the cart modal
+                            cartModal.style.display = 'block';
                         } else {
                             alert('No products added to the cart.');
                         }
