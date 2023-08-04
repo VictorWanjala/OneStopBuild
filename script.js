@@ -39,24 +39,23 @@
                         const cartContainer = document.getElementById('cart-container');
                         cartContainer.innerHTML = '';
                     
-                        cart.products.forEach((product, index) => {
+                        cart.products.forEach((product) => {
                             const cartItem = document.createElement('div');
                             cartItem.className = 'cart-item';
                             if (product && product.title && product.price) {
                                 cart.price += parseFloat(product.price);
-                                cartItem.innerHTML = `
-                                    <p class="cart-product-title">${product.title}</p>
+
+                                // Create the cart item content
+                                const cartItemContent = document.createElement('div');
+                                cartItem.innerHTML = 
+                                    `<p class="cart-product-title">${product.title}</p>
                                     <p class="cart-product-price">$${product.price.toFixed(2)}</p>
-                                    <button class="remove-button" data-index="${index}">Remove</button>`;
-                                
-                               
-                            // Add event listener to the remove button
-                                const removeButton = cartItem.querySelector('.remove-button');
-                                removeButton.addEventListener('click', (event) => {
-                                    event.preventDefault();
-                                    removeCartItem(event, index);
-                                });
-                                cartContainer.append(cartItem)
+                                    `
+                                    cartItem.appendChild(cartItemContent);
+
+                              
+                                cartContainer.appendChild(cartItem);
+                                console.log(cartItem)
                             }
                         });
                 
@@ -107,12 +106,40 @@
                         if (cart.products.length > 0) {
                             cartContent.innerHTML = '';
                 
-                            cart.products.forEach(product => {
+                            cart.products.forEach((product,index) => {
+                                
                                 const cartItem = document.createElement('div');
                                 cartItem.className = 'cart-item';
                                 cartItem.innerHTML = `
                                     <p class="cart-product-title">${product.title} - $${product.price.toFixed(2)}</p>`;
+                                
+                                 // Create the "Remove" button for each product
+                                const removeButton = document.createElement('button');
+                                removeButton.className = 'remove-button';
+                                removeButton.textContent = 'Remove';
+                                removeButton.setAttribute('data-index', index);
+
+                                
+                                cartItem.appendChild(removeButton);
                                 cartContent.appendChild(cartItem);
+
+                                // Function to remove a product from the cart
+                                    const removeCartItem = (event, productIndex) => {
+                                        event.stopPropagation(); // Prevent the click event from propagating to the cart modal
+                                        cart.products.splice(productIndex, 1); // Remove the product from the cart
+                                        updateCartDisplay();
+                                        updateCartCount();
+                                    };
+
+
+                                // Add event listener to the "Remove" button
+                                removeButton.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    removeCartItem(event, index);
+                                });
+
+                                cartContent.appendChild(cartItem);
+
                             });
                 
                             cartTotal.textContent = `$${cart.products.reduce((total, product) => total + product.price, 0).toFixed(2)}`;
@@ -263,7 +290,7 @@
                     },
                 ];
                 
-                    // Attach submit event to the search form
+    
                         // Attach submit event to the search form
                             const searchForm = document.querySelector('.search-form');
                             searchForm.addEventListener('submit', (event) => {
