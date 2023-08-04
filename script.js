@@ -92,7 +92,7 @@
 
                 };
                 
-                // Attach click event to each cart item to remove it
+                // Attaching click event to each cart item to remove it
                     const cartItems = document.querySelectorAll('.cart-item');
                     cartItems.forEach((cartItem, index) => {
                         cartItem.addEventListener('click', (event) => {
@@ -149,7 +149,7 @@
                     
                     };
                     
-                    // Attach click event to the cart icon to toggle the cart modal
+                    // Attaching click event to the cart icon to toggle the cart modal
                     const cartIcon = document.getElementById('cart-icon');
                     cartIcon.addEventListener('click', toggleCartModal);
             
@@ -163,7 +163,7 @@
                         cartModal.style.display = 'none'; 
                     };
                     
-                    // Attach click event to the close button in the cart modal
+                    // Attaching click event to the close button in the cart modal
                     const closeCartButton = document.getElementById('close-cart');
                     closeCartButton.addEventListener('click', closeCartModal);
                     
