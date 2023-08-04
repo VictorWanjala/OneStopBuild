@@ -34,13 +34,6 @@
                     updateCartCount();
                     };    
                     
-                        // Function to remove a product from the cart
-                    const removeCartItem = (event, productIndex) => {
-                        event.stopPropagation(); // Prevent the click event from propagating to the cart modal
-                        cart.products.splice(productIndex, 1); // Remove the product from the cart
-                        updateCartDisplay();
-                        updateCartCount();
-                    };
 
                     const updateCartDisplay = () => {
                         const cartContainer = document.getElementById('cart-container');
@@ -55,10 +48,15 @@
                                     <p class="cart-product-title">${product.title}</p>
                                     <p class="cart-product-price">$${product.price.toFixed(2)}</p>
                                     <button class="remove-button" data-index="${index}">Remove</button>`;
-                                cartContainer.append(cartItem);
-                                cartItem.addEventListener('click', (event) => {
+                                
+                               
+                            // Add event listener to the remove button
+                                const removeButton = cartItem.querySelector('.remove-button');
+                                removeButton.addEventListener('click', (event) => {
                                     event.preventDefault();
+                                    removeCartItem(event, index);
                                 });
+                                cartContainer.append(cartItem)
                             }
                         });
                 
@@ -74,13 +72,7 @@
 
                 };
                 
-                // Attaching click event to each cart item to remove it
-                    const cartItems = document.querySelectorAll('.cart-item');
-                    cartItems.forEach((cartItem, index) => {
-                        cartItem.addEventListener('click', (event) => {
-                            removeCartItem(event, index);
-                        });
-                    });
+               
                 // Function to fetch and display cart data
                 const fetchCartData = (event) => {
                     event.preventDefault();
