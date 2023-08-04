@@ -46,18 +46,26 @@ body {
     border: none;
     padding: 10px 20px;
     border-radius: 3px;
-    cursor: pointer;
+    cursor: pointer;  
+}
+
+#cart-icon:hover{
+    background-color: #0056b3;
 }
 
 #close-cart {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 20px;
+    font-size: 15px;
+    font-weight: bold;
     background: none;
     border: none;
     cursor: pointer;
-    color: #333;
+    color: black;
+}
+#close-cart:hover{
+    background-color: #0056b3;
 }
 
 #cart-container {
@@ -74,12 +82,29 @@ body {
     background-color: #FF9900;
     color: #fff;
     cursor: pointer;
-    font-size: 15px;
-    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 10px;
     border-radius: 3px;
     float: right;
 }
-
+.checkout-button:hover{
+    background-color: #0056b3;
+}
+.cart-item .remove-button {
+    background-color: #FF9900;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cart-item .remove-button:hover {
+    background-color: #0056b3;
+  }
+  
 
 
 
@@ -286,17 +311,6 @@ body {
     margin-bottom: 20px;
 }
 
-.intro .button {
-    background-color: #FF9900;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    padding: 10px 20px;
-    border-radius: 3px;
-    transition: background-color 0.3s ease;
-    margin-top: 15px;
-}
 
 .intro-right {
     text-align: left;
@@ -391,10 +405,7 @@ body {
     max-width: 100%;
     height: auto;
   }
-  html {
-    scroll-behavior: smooth;
-}
-
+  
 
 
 
