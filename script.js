@@ -13,7 +13,8 @@
                     };
 
                     // Function to add a product to the cart
-                    const addToCart = (product) => {
+                    const addToCart = (event, product) => {
+                    event.preventDefault
                     cart.products.push(product);
                     updateCartDisplay();
                     updateCartCount();
@@ -32,6 +33,9 @@
                             `<p class="cart-product-title">${product.title}</p>
                             <p class="cart-product-price">$${product.price.toFixed(2)}</p>`;
                         cartContainer.append(cartItem);
+                        cartItem.addEventListener('click', (event) => {
+                            event.preventDefault();
+                        });
                         }
                     });
                 
@@ -69,10 +73,12 @@
 
 
                     // Function to toggle the cart modal
-                    const toggleCartModal = () => {
+                    const toggleCartModal = (event) => {
+                        event.preventDefault()
                         const cartModal = document.getElementById('cart-modal');
                         const cartContent = document.getElementById('cart-container');
                         const cartTotal = document.getElementById('cart-total');
+                        
                         if (cart.products.length > 0) {
                             cartContent.innerHTML = '';
                 
@@ -253,8 +259,8 @@
 
                 // event listener to Buy Now button
                 const buyButton = productCard.querySelector('.button');
-                buyButton.addEventListener('click', () => {
-                    addToCart(product);
+                buyButton.addEventListener('click', (event) => {
+                    addToCart(event, product);
                 });
             
                 contentDiv.appendChild(productCard);
