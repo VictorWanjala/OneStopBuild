@@ -384,6 +384,11 @@ body {
 
 }
 
+.button a{
+    text-decoration: none;
+    color: white;
+}
+
 .button:hover {
     background-color: #0056b3;
 }
