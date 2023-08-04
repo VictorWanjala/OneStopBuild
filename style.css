@@ -370,8 +370,8 @@ body {
 
 .product-image {
     width: 100%;
-    height: 250px; /* Set a fixed height for the images */
-    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    height: 250px;
+    object-fit: cover;
 }
 
 .product-title {
@@ -404,6 +404,27 @@ body {
 .button:hover {
     background-color: #0056b3;
 }
+
+/* Add this to your existing style.css or in a separate <style> tag in your HTML */
+.product-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    vertical-align: top;
+  }
+  
+  .product-item h2 {
+    margin-top: 0;
+  }
+  
+  .product-item img {
+    max-width: 100%;
+    height: auto;
+  }
+  
 
 
 

@@ -21,7 +21,7 @@
       
       <button class="cart-icon" id="cart-icon">
         <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count">0</span>
+        <span class="cart-count" id="cart-count">0</span>
       </button>
       
         
@@ -77,19 +77,20 @@
                         </ul>
                         </li>
             <li>
-                <form class="search-form">
-                <input type="text" placeholder="Search Products">
+                <form class="search-form" >
+                <input type="text" id="searchBar" placeholder="Search Products">
                 <button type="submit">Search</button>
+                <div id="searchResults"></div>
                 </form>
             </li>
     </ul>
   </nav>
 
-<!-- Hidden Cart Modal Container -->
+
 <div id="cart-modal" class="hidden">
     <button id="close-cart">Close</button>
     <div id="cart-container">
-      <!-- Cart items will be dynamically populated here -->
+
     </div>
     <p id="cart-total">Total: $0.00</p>
     <button class="checkout-button">Checkout</button>

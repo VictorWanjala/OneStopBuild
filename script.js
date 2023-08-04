@@ -16,7 +16,7 @@
                     const addToCart = (product) => {
                     cart.products.push(product);
                     updateCartDisplay();
-                
+                    updateCartCount();
                     };    
                 
                     const updateCartDisplay = () => {
@@ -60,6 +60,7 @@
                             cart.products = [];
                         }
                         updateCartDisplay();
+                        updateCartCount();
                     })
                     .catch(error => {
                         console.error('Error fetching cart data:', error);
@@ -275,7 +276,12 @@
         const aboutContainer = document.getElementById('aboutid')
         aboutContainer.innerHTML = aboutContent
 
-
+        const updateCartCount = () => {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.products.length.toString();
+          };
+          
+          
 
         });
     
