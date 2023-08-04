@@ -27,12 +27,17 @@ body {
 }
 
 .cart-modal {
-
-   display: inline-block;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: inline-block;
     justify-content: space-between;
     margin: 0px 20px;
     padding: 10px 0px;
     border-top: 1px solid;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    background-color: white;
 }
 
 .cart-icon{
@@ -94,12 +99,13 @@ body {
 .checkout-button {
     background-color: #FF9900;
     color: #fff;
-    border: none;
     cursor: pointer;
     font-size: 15px;
     padding: 10px 20px;
     border-radius: 3px;
-    transition: background-color 0.s ease;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .checkout-button:hover {

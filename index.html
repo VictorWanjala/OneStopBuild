@@ -85,20 +85,17 @@
     </ul>
   </nav>
 
-        <div class="cart-modal" id="cart-modal">
-            <div class="cart-content">
-            <h3>Your Cart</h3>
-            <button class="close-cart" id="close-cart">&times;</button>
-            <div class="cart-items" id="cart-container">
-            </div>
-            <div class="cart-footer">
-                <h4>Total: <span id="cart-total">$0.00</span></h4>
-                <button class="checkout-button">Checkout</button>
-                </div>
-            </div>      
-        </div>
+<!-- Hidden Cart Modal Container -->
+<div id="cart-modal" class="hidden">
+    <button id="close-cart">Close</button>
+    <div id="cart-container">
+      <!-- Cart items will be dynamically populated here -->
+    </div>
+    <p id="cart-total">Total: $0.00</p>
+    <button class="checkout-button">Checkout</button>
+  </div>
      
-          
+        
   
 
 

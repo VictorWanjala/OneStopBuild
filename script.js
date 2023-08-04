@@ -1,224 +1,283 @@
 
-document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
 
-    apiUrl = 'https://fakestoreapi.com/products'
-    cartUrl = 'https://fakestoreapi.com/carts/1'
+            apiUrl = 'https://fakestoreapi.com/products'
+            cartUrl = 'https://fakestoreapi.com/carts/1'
 
-              //cart Data
-              const cart = {
-                id: 1,
-                date: '',
-                products: [],
-            };
+                    //cart Data
+                    const cart = {
+                        id: 1,
+                        date: '',
+                        products: [],
+                        price: 0
+                    };
 
-            // Function to add a product to the cart
-            const addToCart = (product) => {
-            cart.products.push(product);
-            updateCartDisplay();
-         
-            };    
-        
-            const updateCartDisplay = () => {
-            const cartContainer = document.getElementById('cart-container');
-            cartContainer.innerHTML = '';
-        
-            cart.products.forEach(product => {
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                if (product && product.title && product.price) {
-                const productPrice = parseFloat(product.price.toFixed(2));
-                cartItem.innerHTML = 
-                    `<p class="cart-product-title">${product.title}</p>
-                    <p class="cart-product-price">$${product.price.toFixed(2)}</p>`;
-                cartContainer.append(cartItem);
-                }
-            });
-        
-            // cart total display
-            const cartTotal = document.getElementById('cart-total');
-            const totalAmount = cart.products.reduce((total, product)=>{
-            if(product && product.price){
-                return total+parseFloat(product.price)
-            }
-            return total
-            },0)
-            cartTotal.textContent = `$${totalAmount.toFixed(2)}`;
-
-            // Cart Click event
-            const cartIcon = document.getElementById('cart-icon');
-            cartIcon.addEventListener('click', toggleCartModal);
-         };
-        
-        // Function to fetch and display cart data
-        const fetchCartData = (event) => {
-            event.preventDefault();
-        fetch(cartUrl)
-            .then(response => response.json())
-            .then(cartData => {
-                console.log(cartData);
-                if (Array.isArray(cartData.products)) {
-                    cart.products = cartData.products;
-                } else {
-                    cart.products = [];
-                }
-                updateCartDisplay();
-            })
-            .catch(error => {
-                console.error('Error fetching cart data:', error);
-            });
-        };
-
-
-            // Function to toggle the cart modal
-            const toggleCartModal = () => {
-                const cartModal = document.getElementById('cart-modal');
-                const cartContent = document.getElementById('cart-container');
-                const cartTotal = document.getElementById('cart-total');
-                if (cart.products.length > 0) {
-                    cartContent.innerHTML = '';
-        
+                    // Function to add a product to the cart
+                    const addToCart = (product) => {
+                    cart.products.push(product);
+                    updateCartDisplay();
+                
+                    };    
+                
+                    const updateCartDisplay = () => {
+                    const cartContainer = document.getElementById('cart-container');
+                    cartContainer.innerHTML = '';
+                
                     cart.products.forEach(product => {
                         const cartItem = document.createElement('div');
                         cartItem.className = 'cart-item';
-                        cartItem.innerHTML = `
-                            <p class="cart-product-title">${product.title} - $${product.price.toFixed(2)}</p>`;
-                        cartContent.appendChild(cartItem);
+                        if (product && product.title && product.price) {
+                        cart.price += parseFloat(product.price);
+                        cartItem.innerHTML = 
+                            `<p class="cart-product-title">${product.title}</p>
+                            <p class="cart-product-price">$${product.price.toFixed(2)}</p>`;
+                        cartContainer.append(cartItem);
+                        }
                     });
+                
+                    // cart total display
+                    const cartTotal = document.getElementById('cart-total');
+                    const totalAmount = cart.products.reduce((total, product)=>{
+                    if(product && product.price){
+                        return total+parseFloat(product.price)
+                    }
+                    return total
+                    },0)
+                    cartTotal.textContent = `$${totalAmount.toFixed(2)}`;
+
+                };
+                
+                // Function to fetch and display cart data
+                const fetchCartData = (event) => {
+                    event.preventDefault();
+                fetch(cartUrl)
+                    .then(response => response.json())
+                    .then(cartData => {
+                        console.log(cartData);
+                        if (Array.isArray(cartData.products)) {
+                            cart.products = cartData.products;
+                        } else {
+                            cart.products = [];
+                        }
+                        updateCartDisplay();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching cart data:', error);
+                    });
+                };
+
+
+                    // Function to toggle the cart modal
+                    const toggleCartModal = () => {
+                        const cartModal = document.getElementById('cart-modal');
+                        const cartContent = document.getElementById('cart-container');
+                        const cartTotal = document.getElementById('cart-total');
+                        if (cart.products.length > 0) {
+                            cartContent.innerHTML = '';
+                
+                            cart.products.forEach(product => {
+                                const cartItem = document.createElement('div');
+                                cartItem.className = 'cart-item';
+                                cartItem.innerHTML = `
+                                    <p class="cart-product-title">${product.title} - $${product.price.toFixed(2)}</p>`;
+                                cartContent.appendChild(cartItem);
+                            });
+                
+                            cartTotal.textContent = `$${cart.products.reduce((total, product) => total + product.price, 0).toFixed(2)}`;
+                
+                            cartModal.classList.toggle('show');
+                        } else {
+                            alert('No products added to the cart.');
+                        }
+                    
+                    };
+                    
+                    // Attach click event to the cart icon to toggle the cart modal
+                    const cartIcon = document.getElementById('cart-icon');
+                    cartIcon.addEventListener('click', toggleCartModal);
+            
+
+                    
+                    
+                    // Function to close the cart modal
+                    const closeCartModal = () => {
+                        const cartModal = document.getElementById('cart-modal');
+                        cartModal.classList.remove('show');
+                    };
+                    
+                    // Attach click event to the close button in the cart modal
+                    const closeCartButton = document.getElementById('close-cart');
+                    closeCartButton.addEventListener('click', closeCartModal);
+                    
+
         
-                    cartTotal.textContent = `$${cart.products.reduce((total, product) => total + product.price, 0).toFixed(2)}`;
-        
-                    cartModal.classList.toggle('show');
-                } else {
-                    alert('No products added to the cart.');
-                }
-            console.log(toggleCartModal)
-            };
+
+                
+                // Custom product details
+                        const customProducts = [
+                    {
+                    title: 'Screwdriver',
+                    description: 'A set of high-quality screwdrivers for various tasks.',
+                    category: 'Hand Tools',
+                    price: 19.99,
+                    image: 'https://images.pexels.com/photos/11882650/pexels-photo-11882650.jpeg?auto=compress&cs=tinysrgb&w=1600'
+                    },
+                    {
+                    title: 'Pliers',
+                    description: 'hand-operated tool for holding and gripping small articles or for bending and cutting wire.',
+                    category: 'Hand Tools',
+                    price: 89.99,
+                    image: 'https://images.pexels.com/photos/5583076/pexels-photo-5583076.jpeg?auto=compress&cs=tinysrgb&w=1600'
+                    },
             
-            // Attach click event to the cart icon to toggle the cart modal
-            const cartIcon = document.getElementById('cart-icon');
-            cartIcon.addEventListener('click', toggleCartModal);
+                    {
+                    title: 'Hammers',
+                    description: 'hammers are used for general carpentry, framing, nail pulling, cabinet making, assembling furniture.',
+                    category: 'Hand Tools',
+                    price: 19.99,
+                    image: 'https://images.pexels.com/photos/209235/pexels-photo-209235.jpeg?auto=compress&cs=tinysrgb&w=1600'
+                    },
+                    {
+                    title: 'Tiles accessories',
+                    description: 'Wood is a common choice as a flooring material and can come in various styles, colors, cuts, and species. .',
+                    category: 'Flooring',
+                    price: 89.99,
+                    image: 'https://images.pexels.com/photos/1652544/pexels-photo-1652544.jpeg?auto=compress&cs=tinysrgb&w=1600'
+                    },
+                    {
+                    title: 'Wooden Flooring',
+                    description: 'A set of high-quality screwdrivers for various tasks.',
+                    category: 'Flooring',
+                    price: 19.99,
+                    image: 'https://images.pexels.com/photos/368754/pexels-photo-368754.jpeg?auto=compress&cs=tinysrgb&w=1600'
+                    },
+                    {
+                    title: 'Flush Doors',
+                    description: 'door describes a doorset where the door face sits in-line with the door frame.',
+                    category: 'Doors',
+                    price: 89.99,
+                    image: 'https://media.istockphoto.com/id/508182318/photo/doors-from-toilets.jpg?b=1&s=612x612&w=0&k=20&c=rbMHcbP0kGWSzFqIJJvzd6KGD4hULIIwFKtYLb43o4I='
+                    },
+                    {
+                        title: 'Hardwood doors',
+                        description: 'Solid wood doors are commonly made with a frame-and-panel construction that uses natural wood—whether a softwood like pine or a hardwood like oak or maple.',
+                        category: 'Doors',
+                        price: 89.99,
+                        image: 'https://images.pexels.com/photos/8134757/pexels-photo-8134757.jpeg?auto=compress&cs=tinysrgb&w=1600'
+                    },
+                    {
+                        title: 'PVC Pipes',
+                        description: 'PVC pipes are made of polyvinyl chloride, a plastic that is made by combining chlorine and ethylene.',
+                        category: 'Plumbing',
+                        price: 89.99,
+                        image: 'https://media.istockphoto.com/id/512524387/photo/pvc-pipes.jpg?b=1&s=612x612&w=0&k=20&c=SBS7U-nsBXqahepzQdVKx9iVTcDQZVE55cCw9gX9ENw='
+                    },
+                    {
+                        title: 'Corrugated iron sheets',
+                        description: 'Corrugated Galvanized Iron or Steel sheets are a lightweight roofing material made of thin sheets, stiffened by corrugations. ',
+                        category: 'Roofing',
+                        price: 89.99,
+                        image: 'https://images.pexels.com/photos/5660082/pexels-photo-5660082.jpeg?auto=compress&cs=tinysrgb&w=1600'
+                    },
+                    {
+                        title: 'Steel',
+                        description: 'Steel is an alloy of iron and carbon with improved strength and fracture resistance compared to other forms of iron. ',
+                        category: 'Fencing',
+                        price: 89.99,
+                        image: 'https://media.istockphoto.com/id/1344231216/photo/rolled-metal-warehouse-many-packs-of-metal-bars-on-the-shelves.jpg?b=1&s=612x612&w=0&k=20&c=0pWOK2vinXIo9foxgpQM3poulkvEzn9A1W1fRENHz1Q='
+                    },
+                    {
+                        title: 'Barbed Wire',
+                        description: 'type of steel fencing wire constructed with sharp edges or points arranged at intervals along the strands.',
+                        category: 'Fencing',
+                        price: 89.99,
+                        image: 'https://images.pexels.com/photos/804806/pexels-photo-804806.jpeg?auto=compress&cs=tinysrgb&w=1600'
+                    },
+                    {
+                        title: 'Chainlink',
+                        description: 'A chainlink fence is a type of fence with a distinct diamond pattern usually made from a steel wire woven together in a zigzag line.',
+                        category: 'Doors',
+                        price: 89.99,
+                        image: 'https://media.istockphoto.com/id/1387511051/photo/black-chain-link-fence-in-front-of-green-hedging.jpg?b=1&s=612x612&w=0&k=20&c=RPIhTyE8q5f1VpToA0B6V3WhxEq9De0QD2XI00aEhmg='
+                    },
+                    {
+                        title: 'PPR Pipes',
+                        description: 'PPR pipes (Polypropylene Random Copolymer pipes) are a type of plastic pipe made from a blend of polypropylene and ethylene copolymers.',
+                        category: 'Plumbing',
+                        price: 89.99,
+                        image: 'https://media.istockphoto.com/id/1342062480/photo/ppr-pipe-fittings-were-on-the-box.jpg?b=1&s=612x612&w=0&k=20&c=YnJwkVbJgw0fxFcKr_WQ246MYCWkUBsNQHXt2dw2lss='
+                    },
+                    {
+                        title: 'Chainlink',
+                        description: 'A chainlink fence is a type of fence with a distinct diamond pattern usually made from a steel wire woven together in a zigzag line.',
+                        category: 'Doors',
+                        price: 89.99,
+                        image: 'https://media.istockphoto.com/id/172859283/photo/chain-link-fence.jpg?b=1&s=612x612&w=0&k=20&c=phNrADYoF__XoOkaD-q9LiNjX9oWXbpT-a2bFP8xS48='
+                    },
+                    {
+                        title: 'Barbed Wire',
+                        description: 'type of steel fencing wire constructed with sharp edges or points arranged at intervals along the strands.',
+                        category: 'Fencing',
+                        price: 89.99,
+                        image: 'https://media.istockphoto.com/id/169726705/photo/barbed-wire.jpg?b=1&s=612x612&w=0&k=20&c=2T3bKaILPJxo78OkDQUNjYJPMZvjeBpkoS3eKKz6FY4='
+                    },
+                ];
+                
+
+
+            fetch(apiUrl)
             
+            .then(response => response.json())
+            .then(data => {
+                // Process the fetched data
+                const contentDiv = document.querySelector('.content')
             
-            // Function to close the cart modal
-            const closeCartModal = () => {
-                const cartModal = document.getElementById('cart-modal');
-                cartModal.classList.remove('show');
-            };
+                //replace fethced data with custom products
+                const allProducts = customProducts
             
-            // Attach click event to the close button in the cart modal
-            const closeCartButton = document.getElementById('close-cart');
-            closeCartButton.addEventListener('click', closeCartModal);
+                //loop through each product in the fetched data
+                allProducts.forEach(product=> {
+                //create a card element for each product
+                const productCard = document.createElement('div')
+                productCard.className = 'product-card'  
             
+                //fill in the product with details
+                productCard.innerHTML = ` 
+                <img src="${product.image}" alt="${product.title}" class="product-image">
+                <h2 class="product-title">${product.title}</h2>
+                <p class="product-category">Category: ${product.category}</p>
+                <p class="product-price">Price: $${product.price}</p>
+                <p class="product-description">${product.description}</p>
+                <button class ="button">Buy now</button>`
 
-  
+                // event listener to Buy Now button
+                const buyButton = productCard.querySelector('.button');
+                buyButton.addEventListener('click', () => {
+                    addToCart(product);
+                });
+            
+                contentDiv.appendChild(productCard);
+            
+            })
+            // Fetch and display cart data
+            fetchCartData();
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+            //About Us content
+            const aboutContent = 
+            `<h2>About Us</h2>
+            <p>OneStopBuild is your premier online source for high-quality construction tools and equipment at affordable prices. With a deep understanding of industry needs, we offer a curated selection of tools, including hand and power tools, abrasives, and accessories, to empower professionals and DIY enthusiasts.</p>
+            <p>Our dedicated team prioritizes customer satisfaction through exceptional service, quick shipping, and reliable support. Join us in our mission to enhance construction projects and build a better future.</p>
+            <p>Our product range includes Hand Tools, Flooring, Doors, Plumbing, Roofing, and Fencing.</p>`;
 
-        
-         // Custom product details
-                const customProducts = [
-            {
-            title: 'Nails',
-            description: 'A set of high-quality screwdrivers for various tasks.',
-            category: 'Hand Tools',
-            price: 19.99,
-            image: 'https://plus.unsplash.com/premium_photo-1675371421509-d6df83959778?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGhhcmR3YXJlJTIwc3RvcmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60'
-            },
-            {
-            title: 'Paint',
-            description: 'Powerful drill with multiple attachments for drilling and screwing.',
-            category: 'Abrassive',
-            price: 89.99,
-            image: 'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFpbnRzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
-            },
-    
-            {
-            title: 'Nails',
-            description: 'A set of high-quality screwdrivers for various tasks.',
-            category: 'Hand Tools',
-            price: 19.99,
-            image: 'https://plus.unsplash.com/premium_photo-1675371421509-d6df83959778?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGhhcmR3YXJlJTIwc3RvcmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60'
-            },
-            {
-            title: 'Paint',
-            description: 'Powerful drill with multiple attachments for drilling and screwing.',
-            category: 'Abrassive',
-            price: 89.99,
-            image: 'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFpbnRzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
-            },
-            {
-            title: 'Nails',
-            description: 'A set of high-quality screwdrivers for various tasks.',
-            category: 'Hand Tools',
-            price: 19.99,
-            image: 'https://plus.unsplash.com/premium_photo-1675371421509-d6df83959778?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGhhcmR3YXJlJTIwc3RvcmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60'
-            },
-            {
-            title: 'Paint',
-            description: 'Powerful drill with multiple attachments for drilling and screwing.',
-            category: 'Abrassive',
-            price: 89.99,
-            image: 'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFpbnRzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
-            },
-         
-        ];
-        
-
-
-    fetch(apiUrl)
-    
-      .then(response => response.json())
-      .then(data => {
-        // Process the fetched data
-        const contentDiv = document.querySelector('.content')
-    
-        //replace fethced data with custom products
-        const allProducts = customProducts
-    
-        //loop through each product in the fetched data
-        allProducts.forEach(product=> {
-        //create a card element for each product
-        const productCard = document.createElement('div')
-        productCard.className = 'product-card'  
-    
-        //fill in the product with details
-        productCard.innerHTML = ` 
-        <img src="${product.image}" alt="${product.title}" class="product-image">
-        <h2 class="product-title">${product.title}</h2>
-        <p class="product-category">Category: ${product.category}</p>
-        <p class="product-price">Price: $${product.price}</p>
-        <p class="product-description">${product.description}</p>
-        <button class ="button">Buy now</button>`
-
-         // event listener to Buy Now button
-         const buyButton = productCard.querySelector('.button');
-         buyButton.addEventListener('click', () => {
-             addToCart(product);
-         });
-    
-        contentDiv.appendChild(productCard);
-    
-    })
-    // Fetch and display cart data
-    fetchCartData();
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-     //About Us content
-     const aboutContent = `
-     <h2>About Us</h2>
-     <p>Welcome to OneStopBuild, your online destination for top-notch construction tools and equipment. We are committed to providing the highest quality tools at prices that won't break the bank.</p>
-     <p>With a passion for construction and a keen understanding of the needs of professionals in the industry, we have curated a wide range of tools that meet the highest standards of performance and durability. Our mission is to empower builders, contractors, and DIY enthusiasts with the tools they need to bring their projects to life.</p>
-     <p>At OneStopBuild, we believe that the right tools are essential for any successful construction project. Our catalog includes a diverse selection of hand tools, power tools, abrasives, and accessories, all carefully selected to ensure your projects are completed efficiently and to the highest standards.</p>
-     <p>Customer satisfaction is at the heart of everything we do. Our team is dedicated to providing exceptional service, quick shipping, and reliable support. Whether you're a seasoned professional or just getting started, we're here to help you find the perfect tools for your needs.</p>
-     <p>Thank you for choosing OneStopBuild. Join us on our journey to build a better future, one project at a time.</p>
- `;
-
-   const aboutContainer = document.getElementById('aboutid')
-   aboutContainer.innerHTML = aboutContent
+        const aboutContainer = document.getElementById('aboutid')
+        aboutContainer.innerHTML = aboutContent
 
 
 
-});
+        });
     
 
          
