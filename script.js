@@ -55,7 +55,7 @@
 
                               
                                 cartContainer.appendChild(cartItem);
-                                console.log(cartItem)
+                                
                             }
                         });
                 
