@@ -111,7 +111,8 @@
                     // Function to close the cart modal
                     const closeCartModal = () => {
                         const cartModal = document.getElementById('cart-modal');
-                        cartModal.classList.remove('show');
+                        // Hide the modal
+                        cartModal.style.display = 'none'; 
                     };
                     
                     // Attach click event to the close button in the cart modal
