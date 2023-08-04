@@ -111,34 +111,22 @@
                                 const cartItem = document.createElement('div');
                                 cartItem.className = 'cart-item';
                                 cartItem.innerHTML = `
-                                    <p class="cart-product-title">${product.title} - $${product.price.toFixed(2)}</p>`;
+                                    <p class="cart-product-title">${product.title} - $ ${product.price.toFixed(2)}</p>`;
                                 
                                  // Create the "Remove" button for each product
                                 const removeButton = document.createElement('button');
                                 removeButton.className = 'remove-button';
                                 removeButton.textContent = 'Remove';
                                 removeButton.setAttribute('data-index', index);
-
-                                
                                 cartItem.appendChild(removeButton);
-                                cartContent.appendChild(cartItem);
-
-                                // Function to remove a product from the cart
-                                    const removeCartItem = (event, productIndex) => {
-                                        event.stopPropagation(); // Prevent the click event from propagating to the cart modal
-                                        cart.products.splice(productIndex, 1); // Remove the product from the cart
-                                        updateCartDisplay();
-                                        updateCartCount();
-                                    };
-
-
-                                // Add event listener to the "Remove" button
-                                removeButton.addEventListener('click', (event) => {
-                                    event.preventDefault();
-                                    removeCartItem(event, index);
-                                });
-
-                                cartContent.appendChild(cartItem);
+                                
+                                  // Add event listener to the "Remove" button
+                                    removeButton.addEventListener('click', (event) => {
+                                        event.preventDefault();
+                                        removeCartItem(event, index);
+                                        event.stopPropagation();
+                                    });
+                                    cartContent.appendChild(cartItem);
 
                             });
                 
@@ -152,6 +140,15 @@
                         }
                     
                     };
+
+                        // Function to remove a product from the cart
+                        const removeCartItem = (event, productIndex) => {
+                            event.stopPropagation(); // Prevent the click event from propagating to the cart modal
+                            cart.products.splice(productIndex, 1); // Remove the product from the cart
+                            updateCartDisplay();
+                            updateCartCount();
+                        };
+
                     
                     // Attaching click event to the cart icon to toggle the cart modal
                     const cartIcon = document.getElementById('cart-icon');
