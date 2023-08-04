@@ -4,6 +4,38 @@
             apiUrl = 'https://fakestoreapi.com/products'
             cartUrl = 'https://fakestoreapi.com/carts/1'
 
+                     // Attach submit event to the search form
+                        const searchForm = document.querySelector('.search-form');
+                        searchForm.addEventListener('submit', (event) => {
+                            event.preventDefault();
+                            const searchTerm = document.getElementById('searchBar').value;
+                            searchProducts(searchTerm);
+                        });
+                        const searchProducts = (searchTerm) => {
+                            const searchResultsDiv = document.getElementById('searchResults');
+                            searchResultsDiv.innerHTML = '';
+                        
+                            if (searchTerm) {
+                                const searchResults = customProducts.filter((product) =>
+                                    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+                                );
+                        
+                                if (searchResults.length > 0) {
+                                    searchResults.forEach((product) => {
+                                        const searchResultItem = document.createElement('div');
+                                        searchResultItem.className = 'search-result-item';
+                                        searchResultItem.innerHTML = `
+                                            <p class="search-product-title">${product.title}</p>
+                                            <p class="search-product-price">$${product.price.toFixed(2)}</p>`;
+                                        searchResultsDiv.appendChild(searchResultItem);
+                                    });
+                                } else {
+                                    searchResultsDiv.textContent = 'No matching products found.';
+                                }
+                            }
+                        };
+                        
+
                     //cart Data
                     const cart = {
                         id: 1,
@@ -19,25 +51,34 @@
                     updateCartDisplay();
                     updateCartCount();
                     };    
-                
+                    
+                        // Function to remove a product from the cart
+                    const removeCartItem = (event, productIndex) => {
+                        event.stopPropagation(); // Prevent the click event from propagating to the cart modal
+                        cart.products.splice(productIndex, 1); // Remove the product from the cart
+                        updateCartDisplay();
+                        updateCartCount();
+                    };
+
                     const updateCartDisplay = () => {
-                    const cartContainer = document.getElementById('cart-container');
-                    cartContainer.innerHTML = '';
-                
-                    cart.products.forEach(product => {
-                        const cartItem = document.createElement('div');
-                        cartItem.className = 'cart-item';
-                        if (product && product.title && product.price) {
-                        cart.price += parseFloat(product.price);
-                        cartItem.innerHTML = 
-                            `<p class="cart-product-title">${product.title}</p>
-                            <p class="cart-product-price">$${product.price.toFixed(2)}</p>`;
-                        cartContainer.append(cartItem);
-                        cartItem.addEventListener('click', (event) => {
-                            event.preventDefault();
+                        const cartContainer = document.getElementById('cart-container');
+                        cartContainer.innerHTML = '';
+                    
+                        cart.products.forEach((product, index) => {
+                            const cartItem = document.createElement('div');
+                            cartItem.className = 'cart-item';
+                            if (product && product.title && product.price) {
+                                cart.price += parseFloat(product.price);
+                                cartItem.innerHTML = `
+                                    <p class="cart-product-title">${product.title}</p>
+                                    <p class="cart-product-price">$${product.price.toFixed(2)}</p>
+                                    <button class="remove-button" data-index="${index}">Remove</button>`;
+                                cartContainer.append(cartItem);
+                                cartItem.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                });
+                            }
                         });
-                        }
-                    });
                 
                     // cart total display
                     const cartTotal = document.getElementById('cart-total');
@@ -51,6 +92,13 @@
 
                 };
                 
+                // Attach click event to each cart item to remove it
+                    const cartItems = document.querySelectorAll('.cart-item');
+                    cartItems.forEach((cartItem, index) => {
+                        cartItem.addEventListener('click', (event) => {
+                            removeCartItem(event, index);
+                        });
+                    });
                 // Function to fetch and display cart data
                 const fetchCartData = (event) => {
                     event.preventDefault();
@@ -119,7 +167,7 @@
                     const closeCartButton = document.getElementById('close-cart');
                     closeCartButton.addEventListener('click', closeCartModal);
                     
-
+                    
         
 
                 
