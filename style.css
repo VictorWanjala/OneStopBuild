@@ -1,0 +1,410 @@
+
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Top Navigation Bar */
+.top-navbar {
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 300px;
+}
+
+.top-nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cart-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    max-height: 80vh;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#cart-icon{
+    background-color: #ff9900;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#close-cart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+}
+
+#cart-container {
+    margin-bottom: 15px;
+}
+
+#cart-total {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.checkout-button {
+    background-color: #FF9900;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    float: right;
+}
+
+
+
+
+
+
+.top-nav-links li {
+    margin: 0 105px;
+}
+
+.top-nav-links a {
+    text-decoration: none;
+    color: black;
+    font-size: larger;
+    display: flex;
+    align-items: center;
+}
+
+.top-nav-links a:hover {
+    color: #ff9900;
+}
+
+/* Bottom Navigation Bar */
+.bottom-navbar {
+    background-color: #f0f0f0;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.bottom-nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.bottom-nav-links li {
+    margin: 0 70px;
+}
+
+.bottom-nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 17px;
+}
+
+.bottom-nav-links a:hover {
+    color: #ff9900;
+}
+.hidden {
+    display: none;
+  }
+  
+  #hand-tools:hover #hand-tools-list {
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #hand-tools-list li {
+    padding: 5px;
+  }
+
+  #flooring:hover #flooringlist {
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #flooringlist li {
+    padding: 5px;
+  }
+
+  #doors:hover #door-list {
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #door-list li {
+    padding: 5px;
+  }
+
+  #plumbing:hover #plumbing-list {
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #plumbing-list {
+    padding: 5px;
+  }
+
+  #roofing:hover #roofing-list {
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #roofing-list {
+    padding: 5px;
+  }
+
+  #fencing:hover #fencing-list {
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #fencing-list {
+    padding: 5px;
+  }
+  
+
+/* Search Form */
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    margin-right: 5px;
+    width: 300px;
+}
+
+.search-form button {
+    background-color: #ff9900;
+    color: #fff;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+    }
+
+/*intro*/
+.intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+    margin-top: 20px;
+}
+
+.intro-left,
+.intro-right {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.intro h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.intro h3 {
+    font-size: 30px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.intro .button {
+    background-color: #FF9900;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.intro-right {
+    text-align: left;
+}
+
+.intro-right h2 {
+    color: #FF9900;
+}
+
+.intro-right p {
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+
+
+
+/* Product Cards */
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    
+
+}
+
+.product-card-content {
+    flex-grow: 1;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-title {
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.product-category, .product-price {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.product-description {
+    font-size: 0.9rem;
+}
+
+.button {
+    background-color: #FF9900;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 10px;    
+    padding: 10px 10px;
+    border-radius: 3px;
+    
+
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+.product-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    vertical-align: top;
+  }
+  
+  .product-item h2 {
+    margin-top: 0;
+  }
+  
+  .product-item img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+
+
+
+
+  
+  
+
+    
+  
+  
+
+
+  
+  
+  
+  
