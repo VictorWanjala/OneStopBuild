@@ -4,36 +4,17 @@
             apiUrl = 'https://fakestoreapi.com/products'
             cartUrl = 'https://fakestoreapi.com/carts/1'
 
-                     // Attach submit event to the search form
-                        const searchForm = document.querySelector('.search-form');
-                        searchForm.addEventListener('submit', (event) => {
-                            event.preventDefault();
-                            const searchTerm = document.getElementById('searchBar').value;
-                            searchProducts(searchTerm);
-                        });
-                        const searchProducts = (searchTerm) => {
-                            const searchResultsDiv = document.getElementById('searchResults');
-                            searchResultsDiv.innerHTML = '';
-                        
-                            if (searchTerm) {
-                                const searchResults = customProducts.filter((product) =>
-                                    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-                                );
-                        
-                                if (searchResults.length > 0) {
-                                    searchResults.forEach((product) => {
-                                        const searchResultItem = document.createElement('div');
-                                        searchResultItem.className = 'search-result-item';
-                                        searchResultItem.innerHTML = `
-                                            <p class="search-product-title">${product.title}</p>
-                                            <p class="search-product-price">$${product.price.toFixed(2)}</p>`;
-                                        searchResultsDiv.appendChild(searchResultItem);
-                                    });
-                                } else {
-                                    searchResultsDiv.textContent = 'No matching products found.';
-                                }
+                    const handleCategoryVisibility = (categoryText, show) => {
+                        const categoryElements = document.querySelectorAll('.category');
+                        categoryElements.forEach((categoryElement) => {
+                            if (categoryElement.textContent.toLowerCase().includes(categoryText.toLowerCase())) {
+                                categoryElement.style.display = show ? 'block' : 'none';
                             }
-                        };
+                        });
+                    };
+
+
+  
                         
 
                     //cart Data
@@ -41,7 +22,8 @@
                         id: 1,
                         date: '',
                         products: [],
-                        price: 0
+                        price: 0,
+                        
                     };
 
                     // Function to add a product to the cart
@@ -113,12 +95,15 @@
                         }
                         updateCartDisplay();
                         updateCartCount();
+                        
                     })
                     .catch(error => {
                         console.error('Error fetching cart data:', error);
                     });
                 };
 
+                                
+                
 
                     // Function to toggle the cart modal
                     const toggleCartModal = (event) => {
@@ -152,6 +137,11 @@
                     // Attaching click event to the cart icon to toggle the cart modal
                     const cartIcon = document.getElementById('cart-icon');
                     cartIcon.addEventListener('click', toggleCartModal);
+                    cartIcon.addEventListener('click', (event) => {
+                        event.preventDefault(); // Prevent default form submission
+                        toggleCartModal(event);
+                        fetchCartData(); // Fetch and display cart data
+                    });
             
 
                     
@@ -281,6 +271,32 @@
                     },
                 ];
                 
+                    // Attach submit event to the search form
+                        // Attach submit event to the search form
+                            const searchForm = document.querySelector('.search-form');
+                            searchForm.addEventListener('submit', (event) => {
+                                event.preventDefault();
+                                const searchTerm = document.getElementById('searchBar').value;
+                                searchProducts(searchTerm);
+                                console.log(searchTerm)
+                            });
+
+                            const searchProducts = (searchTerm) => {
+                                if (searchTerm) {
+                                    const searchResult = customProducts.find((product) =>
+                                        product.title.toLowerCase().includes(searchTerm.toLowerCase())
+                                    );
+
+                                    if (searchResult) {
+                                        const categoryElement = document.getElementById(searchResult.category);
+                                        if (categoryElement) {
+                                            categoryElement.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    }
+                                }
+                            };
+
+             
 
 
             fetch(apiUrl)
@@ -295,6 +311,7 @@
             
                 //loop through each product in the fetched data
                 allProducts.forEach(product=> {
+                    
                 //create a card element for each product
                 const productCard = document.createElement('div')
                 productCard.className = 'product-card'  
@@ -311,7 +328,9 @@
                 // event listener to Buy Now button
                 const buyButton = productCard.querySelector('.button');
                 buyButton.addEventListener('click', (event) => {
+                    event.preventDefault
                     addToCart(event, product);
+                    alert('Item added to cart')
                 });
             
                 contentDiv.appendChild(productCard);
